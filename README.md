@@ -38,11 +38,55 @@ This project builds a complete fraud detection system with:
 
 ## 📊 Monitoring Dashboard
 
-![Dashboard](docs/dashboard.png)
+The system includes a real-time monitoring dashboard built using **Streamlit** to track fraud predictions and system behavior.
 
-### 🔍 Recent Transactions
+---
+
+### 🎬 Dashboard Demo (Live Flow)
+
+![Dashboard Demo](docs/dashboard_demo.gif)
+
+---
+
+### 📈 Fraud Score Distribution
+
+This plot shows how predicted fraud probabilities are distributed across transactions.
+
+![Fraud Score](docs/fraud_score_distribution.png)
+
+---
+
+### 📊 Score Statistics
+
+Statistical summary of fraud scores and labels to monitor distribution shifts.
+
+![Score Stats](docs/score_statistics.png)
+
+---
+
+### 🚦 Decision Distribution
+
+Shows how many transactions are approved, blocked, or sent for review.
+
+![Decision](docs/decision_distribution.png)
+
+---
+
+### 📋 Recent Transactions
+
+Displays recent predictions with amount, fraud probability, and decision.
 
 ![Transactions](docs/recent_transactions.png)
+
+---
+
+### 🔍 What This Dashboard Helps With
+
+• Detect abnormal fraud score patterns
+• Monitor model prediction behavior
+• Track approval vs rejection rates
+• Identify potential model drift
+• Debug real-time predictions
 
 ---
 
