@@ -30,6 +30,21 @@ This project builds a complete fraud detection system with:
 
 ---
 
+## 🌐 Live Demo
+
+🚀 **Fraud Monitoring Dashboard (Live)**
+👉 [https://YOUR-STREAMLIT-LINK](https://fraud-detection-ml-system-wmawvpwwe65vdwm7gsth3p.streamlit.app/)
+
+📊 Real-time fraud monitoring with interactive visualizations
+
+⚡ Fraud Detection API
+👉 https://your-api-link
+
+📄 API Docs:
+👉 https://your-api-link/docs
+
+---
+
 ## 📊 Monitoring Dashboard
 
 The system includes a real-time monitoring dashboard built using **Streamlit** to track fraud predictions and system behavior.
