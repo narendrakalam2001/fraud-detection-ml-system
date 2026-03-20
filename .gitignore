@@ -24,7 +24,8 @@ catboost_info/
 mlruns/
 
 # Model files (IMPORTANT)
-fraud_models/
+fraud_models/*
+!fraud_models/monitor_scores.csv
 *.joblib
 
 # Logs
