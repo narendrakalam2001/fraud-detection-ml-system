@@ -7,18 +7,11 @@ joblib
 
 altair==4.2.2
 
-xgboost
-lightgbm
-
 fastapi
 uvicorn
 
 streamlit==1.32.0
 
 python-multipart
-
-shap
-
-mlflow
 
 scipy
