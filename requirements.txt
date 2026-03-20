@@ -5,6 +5,8 @@ matplotlib
 seaborn
 joblib
 
+altair
+
 xgboost
 lightgbm
 
