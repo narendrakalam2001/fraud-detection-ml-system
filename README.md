@@ -76,11 +76,11 @@ Displays recent predictions with amount, fraud probability, and decision.
 
 ### 🔍 What This Dashboard Helps With
 
-  • Detect abnormal fraud score patterns
-  • Monitor model prediction behavior
-  • Track approval vs rejection rates
-  • Identify potential model drift
-  • Debug real-time predictions
+ - Detect abnormal fraud score patterns
+ - Monitor model prediction behavior
+ - Track approval vs rejection rates
+ - Identify potential model drift
+ - Debug real-time predictions
 
 ---
 
