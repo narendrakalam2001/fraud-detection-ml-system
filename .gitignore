@@ -29,12 +29,14 @@ fraud_models/*
 *.joblib
 
 # Logs
-logs/
+logs/*
+!logs/prediction_logs.csv
 *.log
 
 # Data files
 *.csv
 !data/sample_transactions.csv
-
+!fraud_models/monitor_scores.csv
+!logs/prediction_logs.csv
 # Optional
 *.parquet
