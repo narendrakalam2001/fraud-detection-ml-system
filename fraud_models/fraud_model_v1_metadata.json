@@ -1,6 +1,6 @@
 {
     "model_version": "v1",
     "best_model": "ExtraTrees",
-    "threshold": 0.3,
-    "training_date": "2026-03-20 10:59:58"
+    "threshold": 0.19,
+    "training_date": "2026-03-22 02:12:11"
 }

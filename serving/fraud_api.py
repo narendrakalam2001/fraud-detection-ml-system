@@ -36,6 +36,18 @@ metadata_path = os.path.join(MODEL_DIR, "fraud_model_v1_metadata.json")
 class Transaction(BaseModel):
     Time: float
     Amount: float
+        
+# ==============================
+# HOME ROUTE (ADD THIS HERE)
+# ==============================
+
+@app.get("/")
+def home():
+    return {
+        "message": "Fraud Detection API is live 🚀",
+        "docs": "/docs",
+        "health": "/health"
+    }
 
 # ==============================
 # HEALTH CHECK
