@@ -1,9 +1,42 @@
 import streamlit as st
+import requests
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
 
 st.title("Fraud Detection Monitoring Dashboard")
+
+# ==============================
+# REAL-TIME FRAUD PREDICTION
+# ==============================
+
+st.subheader("🔮 Real-Time Fraud Prediction")
+
+API_URL = "https://fraud-detection-ml-system.onrender.com/predict"
+
+time_input = st.number_input("Transaction Time", value=50000.0)
+amount_input = st.number_input("Transaction Amount", value=100.0)
+
+if st.button("Predict Fraud"):
+
+    payload = {
+        "Time": time_input,
+        "Amount": amount_input
+    }
+
+    try:
+        response = requests.post(API_URL, json=payload)
+
+        if response.status_code == 200:
+            result = response.json()
+
+            st.success(f"Fraud Probability: {result['fraud_probability']:.4f}")
+            st.warning(f"Decision: {result['decision']}")
+        else:
+            st.error("API Error")
+
+    except Exception as e:
+        st.error(f"Connection Error: {e}")
 
 df = pd.read_csv("fraud_models/monitor_scores.csv")
 

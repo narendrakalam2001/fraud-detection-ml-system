@@ -38,10 +38,10 @@ This project builds a complete fraud detection system with:
 📊 Real-time fraud monitoring with interactive visualizations
 
 ⚡ Fraud Detection API
-👉 https://your-api-link
+👉 https://fraud-detection-ml-system.onrender.com
 
 📄 API Docs:
-👉 https://your-api-link/docs
+👉 https://fraud-detection-ml-system.onrender.com/docs
 
 ---
 
