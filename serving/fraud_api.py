@@ -20,7 +20,12 @@ app = FastAPI(title="Fraud Detection API")
 # ==============================
 # LOAD MODEL
 # ==============================
-model, threshold = load_latest_model()
+try:
+    model, threshold = load_latest_model()
+except Exception as e:
+    logger.error(f"Model loading failed: {e}")
+    model = None
+    threshold = 0.5
 
 metadata_path = os.path.join(MODEL_DIR, "fraud_model_v1_metadata.json")
 
@@ -61,6 +66,9 @@ def predict(transaction: Transaction):
 
     start = time.time()
 
+    if model is None:
+        return {"error": "Model not loaded"}
+
     prob, decision = predict_transaction(
         model,
         transaction.dict(),
@@ -79,6 +87,9 @@ def predict(transaction: Transaction):
     }
 
     log_path = "logs/prediction_logs.csv"
+
+    if not os.path.exists("logs"):
+        os.makedirs("logs")
 
     log_df = pd.DataFrame([log_record])
 

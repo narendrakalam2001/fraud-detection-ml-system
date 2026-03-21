@@ -25,8 +25,8 @@ mlruns/
 
 # Model files (IMPORTANT)
 fraud_models/*
+!fraud_models/*.joblib
 !fraud_models/monitor_scores.csv
-*.joblib
 
 # Logs
 logs/*
