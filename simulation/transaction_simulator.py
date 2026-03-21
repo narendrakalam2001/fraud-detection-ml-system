@@ -2,7 +2,7 @@ import requests
 import random
 import time
 
-API_URL = "http://127.0.0.1:8000/predict"
+API_URL = "https://fraud-detection-ml-system.onrender.com/predict"
 
 def generate_transaction():
 

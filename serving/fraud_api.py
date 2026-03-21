@@ -78,15 +78,25 @@ def predict(transaction: Transaction):
 
     start = time.time()
 
-    if model is None:
-        return {"error": "Model not loaded"}
+    # ==============================
+    # ADD MISSING FEATURES (V1–V28)
+    # ==============================
+
+    input_data = transaction.dict()
+
+    for i in range(1, 29):
+        input_data[f"V{i}"] = 0
+
+    # ==============================
+    # PREDICTION
+    # ==============================
 
     prob, decision = predict_transaction(
         model,
-        transaction.dict(),
+        input_data,
         threshold
     )
-
+    
     # ==============================
     # PREDICTION LOGGING
     # ==============================
