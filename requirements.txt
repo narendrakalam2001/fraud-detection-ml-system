@@ -1,11 +1,7 @@
-streamlit==1.32.0
-pandas==2.2.2
-numpy==1.26.4
-matplotlib
-seaborn
-altair==4.2.2
-joblib
 fastapi
 uvicorn
-networkx
+pandas==2.2.2
+numpy==1.26.4
 scikit-learn==1.3.2
+joblib
+networkx
