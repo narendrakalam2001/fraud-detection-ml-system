@@ -6,6 +6,7 @@ import logging
 import time
 import json
 import os
+import random
 
 from src.config import MODEL_DIR
 from services.prediction_service import predict_transaction
@@ -85,7 +86,7 @@ def predict(transaction: Transaction):
     input_data = transaction.dict()
 
     for i in range(1, 29):
-        input_data[f"V{i}"] = 0
+        input_data[f"V{i}"] = random.uniform(-5, 5)
 
     # ==============================
     # PREDICTION
