@@ -8,3 +8,4 @@ joblib
 fastapi
 uvicorn
 networkx
+scikit-learn
