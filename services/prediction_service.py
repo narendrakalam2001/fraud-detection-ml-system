@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import random
 
 from feature_store.fraud_features import build_fraud_features
 from graph_detection.fraud_graph_detection import compute_graph_risk
@@ -23,7 +24,7 @@ def prepare_features(df):
     try:
         df = compute_graph_risk(df)
     except:
-        df["graph_risk_score"] = 0
+        df["graph_risk_score"] = random.uniform(0, 1)
     return df
 
 
@@ -38,11 +39,11 @@ def predict_transaction(model, transaction, threshold):
     for i in range(1, 29):
         col = f"V{i}"
         if col not in df.columns:
-            df[col] = 0
+            df[col] = random.uniform(-5, 5)
 
     if "anomaly_score" not in df.columns:
-        df["anomaly_score"] = 0
-
+        df["anomaly_score"] = random.uniform(0, 1)
+        
     # --------------------------------------------------
     # FEATURE ENGINEERING
     # --------------------------------------------------
