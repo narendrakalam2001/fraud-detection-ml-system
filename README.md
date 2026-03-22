@@ -32,10 +32,10 @@ This project builds a complete fraud detection system with:
 
 ## 🌐 Live Demo
 
+📊 Real-time fraud monitoring with interactive visualizations
+
 🚀 **Fraud Monitoring Dashboard (Live)**
 👉 [https://YOUR-STREAMLIT-LINK](https://fraud-detection-ml-system-wmawvpwwe65vdwm7gsth3p.streamlit.app/)
-
-📊 Real-time fraud monitoring with interactive visualizations
 
 ⚡ **Fraud Detection API**
 👉 [https://YOUR-RENDER-LINK] (https://fraud-detection-ml-system.onrender.com)
