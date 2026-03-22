@@ -37,11 +37,11 @@ This project builds a complete fraud detection system with:
 
 📊 Real-time fraud monitoring with interactive visualizations
 
-⚡ Fraud Detection API
-👉 https://fraud-detection-ml-system.onrender.com
+⚡ **Fraud Detection API**
+👉 [https://YOUR-RENDER-LINK] (https://fraud-detection-ml-system.onrender.com)
 
-📄 API Docs:
-👉 https://fraud-detection-ml-system.onrender.com/docs
+📄 **API Docs:**
+👉 [https://YOUR-RENDER-LINK] (https://fraud-detection-ml-system.onrender.com/docs)
 
 ---
 
@@ -273,6 +273,6 @@ Machine Learning & Data Science
 
 📧 kalamnarendra2001@gmail.com  
 
-🔗 https://www.linkedin.com/in/narendra-kalam-290543278
+🔗 https://www.linkedin.com/in/narendra-kalam
 
-🌐 Portfolio: (your website)
+🌐 Portfolio: ...
