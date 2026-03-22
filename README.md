@@ -38,10 +38,10 @@ This project builds a complete fraud detection system with:
 👉 [https://YOUR-STREAMLIT-LINK](https://fraud-detection-ml-system-wmawvpwwe65vdwm7gsth3p.streamlit.app/)
 
 ⚡ **Fraud Detection API**
-👉 [https://YOUR-RENDER-LINK] (https://fraud-detection-ml-system.onrender.com)
+👉 [https://YOUR-RENDER-LINK](https://fraud-detection-ml-system.onrender.com)
 
 📄 **API Docs:**
-👉 [https://YOUR-RENDER-LINK] (https://fraud-detection-ml-system.onrender.com/docs)
+👉 [https://YOUR-RENDER-LINK](https://fraud-detection-ml-system.onrender.com/docs)
 
 ---
 
