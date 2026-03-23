@@ -211,12 +211,27 @@ fraud-detection-ml-system
 ├── monitoring
 ├── feature_store
 ├── graph_detection
+├── services
+├── simulation
 │
 ├── notebooks
 ├── data
 ├── docs
 │
+├── fraud_models
+│ ├── fraud_model_v1.joblib
+│ ├── fraud_model_v1_metadata.json
+│ ├── latest_model.json
+│ ├── monitor_scores.csv
+│
+├── logs
+│ └── prediction_logs.csv
+│
+├── .streamlit
+│ └── config.toml
+│
 ├── requirements.txt
+├── runtime.txt
 ├── README.md
 └── .gitignore
 ```
@@ -225,7 +240,7 @@ fraud-detection-ml-system
 
 ## 🛠 Tech Stack
 
-Python, Scikit-Learn, XGBoost, LightGBM, FastAPI, Streamlit, Pandas, NumPy
+Python, Scikit-Learn, XGBoost, LightGBM, FastAPI, Streamlit, Pandas, NumPy, Render, Streamlit Cloud
 
 ---
 
