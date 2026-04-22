@@ -1,1 +1,4 @@
-{"model_name": "fraud_model_v1.joblib", "threshold": 0.19}
+{
+  "model_name": "fraud_model_ExtraTrees_v1.joblib",
+  "threshold": 0.21
+}

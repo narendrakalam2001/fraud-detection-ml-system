@@ -1,0 +1,21 @@
+# ============================================================
+# REQUIREMENTS — API deployment only (Render)
+# Stripped of training-only deps (shap, mlflow, catboost)
+# to keep build fast on free tier
+# ============================================================
+
+fastapi
+uvicorn
+
+pandas==2.1.4
+numpy==1.26.4
+
+scikit-learn==1.3.2
+imbalanced-learn
+
+xgboost
+lightgbm
+
+networkx
+joblib
+requests
