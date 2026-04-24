@@ -40,7 +40,7 @@ CHALLENGER_PATH = os.path.join(BASE_DIR, "fraud_models", "challenger_log.json")
 # SIDEBAR — LIVE PREDICTION
 # ============================================================
 
-st.sidebar.header("🔮 Predict Transaction Risk")
+st.sidebar.header("🔮 Predict Transaction Fraud")
 
 time_input   = st.sidebar.number_input("Transaction Time (seconds)", value=50000.0, min_value=0.0)
 amount_input = st.sidebar.number_input("Transaction Amount ($)",     value=100.0,   min_value=0.0)
