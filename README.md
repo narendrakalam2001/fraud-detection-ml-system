@@ -46,7 +46,7 @@ real-world payment system decision pipelines.
 
 ## 🏗 System Architecture
 
-![Architecture](docs/architecture/system_architecture.svg)
+![Architecture](docs/architecture/system_architecture.png)
 
 ---
 ## 🌐 Live Demo
