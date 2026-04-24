@@ -1,0 +1,36 @@
+[
+  {
+    "decision": "REJECTED",
+    "reason": "Gates failed: F1 improvement +0.0000 < 0.005",
+    "evaluated_at": "2026-04-21 20:54:47",
+    "challenger_name": "ExtraTrees",
+    "challenger_f1": 0.8962,
+    "challenger_roc_auc": 0.9669,
+    "challenger_gap": 0.0004,
+    "champion_name": "ExtraTrees",
+    "champion_f1": 0.8962,
+    "champion_roc_auc": 0.9669,
+    "gates": {
+      "f1_improvement_passed": false,
+      "roc_auc_passed": true,
+      "gap_passed": true
+    }
+  },
+  {
+    "decision": "REJECTED",
+    "reason": "Gates failed: F1 improvement +0.0000 < 0.005",
+    "evaluated_at": "2026-04-24 10:02:16",
+    "challenger_name": "ExtraTrees",
+    "challenger_f1": 0.8962,
+    "challenger_roc_auc": 0.9669,
+    "challenger_gap": 0.0004,
+    "champion_name": "ExtraTrees",
+    "champion_f1": 0.8962,
+    "champion_roc_auc": 0.9669,
+    "gates": {
+      "f1_improvement_passed": false,
+      "roc_auc_passed": true,
+      "gap_passed": true
+    }
+  }
+]
