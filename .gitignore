@@ -27,6 +27,7 @@ mlruns/
 fraud_models/*
 !fraud_models/*.joblib
 !fraud_models/monitor_scores.csv
+!fraud_models/*.json
 
 # Logs
 logs/*

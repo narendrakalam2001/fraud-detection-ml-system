@@ -70,17 +70,26 @@ The system includes a real-time monitoring dashboard built using **Streamlit** t
 
 ---
 
-### 🎬 Dashboard Demo (Live Flow)
+### 🎬System Demo (End-to-End Flow)
 
-![Dashboard Demo](docs/gifs/dashboard_demo.gif)
+![Dashboard Demo](docs/gifs/system_demo.gif)
 
 ---
 
-### 📈 Fraud Score Distribution
+### 🖥️ Full Dashboard UI
 
-This plot shows how predicted fraud probabilities are distributed across transactions.
+Real-time applicant fraud scoring + Champion vs Challenger history.
 
-![Fraud Score](docs/screenshots/fraud_score_distribution.png)
+![Dashboard](docs/screenshots/dashboard_full_ui.png)
+
+---
+
+### 📈 Fraud Score and Decision Distribution
+
+score plot shows how predicted fraud probabilities are distributed across transactions.
+and decision shows how many transactions are approved, blocked, or sent for review.
+
+![Fraud Score](docs/screenshots/fraud_score_decision_distribution.png)
 
 ---
 
@@ -92,19 +101,21 @@ Statistical summary of fraud scores and labels to monitor distribution shifts.
 
 ---
 
-### 🚦 Decision Distribution
+### 📉 Feature Drift Report (PSI) and score
 
-Shows how many transactions are approved, blocked, or sent for review.
+PSI drift monitoring with 🔴🟡🟢 status flags
 
-![Decision](docs/screenshots/decision_distribution.png)
+![Drift Report](docs/screenshots/drift_report.png)
+
+![Drift Score](docs/screenshots/drift_score.png)
 
 ---
 
-### 📋 Recent Transactions
+### 📋 Recent Predictions
 
 Displays recent predictions with amount, fraud probability, and decision.
 
-![Transactions](docs/screenshots/recent_transactions.png)
+![Transactions](docs/screenshots/recent_prediction.png)
 
 ---
 
@@ -334,13 +345,14 @@ fraud-detection-ml-system/
 │   └── fraud_detection_eda.ipynb  ← 25-step professional EDA
 │
 ├── fraud_models/
+│   ├── challenger_log.json
+│   ├── feature_drift_report.csv
 │   ├── fraud_model_ExtraTrees_v1.joblib
 │   ├── latest_model.json
 │   ├── model_card_ExtraTrees_v1.json
-│   ├── challenger_log.json
-│   ├── model_experiment_results.csv
+│   ├── fraud_model_v1_metadata.json
 │   ├── monitor_scores.csv
-│   └── feature_drift_report.csv
+│   └── model_experiment_results.csv
 │
 ├── logs/
 │   └── prediction_logs.csv
