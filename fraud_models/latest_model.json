@@ -1,4 +1,5 @@
 {
   "model_name": "fraud_model_ExtraTrees_v1.joblib",
-  "threshold": 0.21
+  "threshold": 0.21,
+  "model_card_path": "fraud_models/model_card_ExtraTrees_v1.json"
 }

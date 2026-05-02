@@ -8,6 +8,7 @@
 ![Machine Learning](https://img.shields.io/badge/Machine%20Learning-Production-orange)
 ![Tests](https://img.shields.io/badge/Tests-35%20passing-brightgreen)
 ![MLflow](https://img.shields.io/badge/MLflow-Tracked-blue)
+![CI](https://github.com/narendrakalam2001/fraud-detection-ml-system/actions/workflows/ci.yml/badge.svg)
 
 Production-grade end-to-end machine learning system for **real-time credit card fraud detection** with a
 **3-tier decision engine (APPROVE / REVIEW / BLOCK)**, IQR-based outlier clipping, correct PSI drift monitoring,
@@ -54,13 +55,13 @@ real-world payment system decision pipelines.
 📊 Real-time fraud monitoring with interactive visualizations
 
 🚀 **Fraud Monitoring Dashboard (Live)**
-👉 [https://YOUR-STREAMLIT-LINK](https://fraud-detection-ml-system-wmawvpwwe65vdwm7gsth3p.streamlit.app/)
+👉 [https://fraud-detection-ml-system-wmawvpwwe65vdwm7gsth3p.streamlit.app/](https://fraud-detection-ml-system-wmawvpwwe65vdwm7gsth3p.streamlit.app/)
 
 ⚡ **Fraud Detection API**
-👉 [https://YOUR-RENDER-LINK](https://fraud-detection-ml-system.onrender.com)
+👉 [https://fraud-detection-ml-system.onrender.com](https://fraud-detection-ml-system.onrender.com)
 
 📄 **API Docs:**
-👉 [https://YOUR-RENDER-LINK](https://fraud-detection-ml-system.onrender.com/docs)
+👉 [https://fraud-detection-ml-system.onrender.com/docs](https://fraud-detection-ml-system.onrender.com/docs)
 
 ---
 
@@ -218,6 +219,7 @@ POST /predict
 {
   "fraud_probability": 0.0312,
   "decision": "APPROVE",
+  "rule_triggered": null,
   "latency_seconds": 0.043
 }
 ```
@@ -364,6 +366,13 @@ fraud-detection-ml-system/
 ├── .streamlit/
 │   └── config.toml
 │
+├── Dockerfile                 ← API Docker image
+├── Dockerfile.dashboard       ← Dashboard Docker image
+├── docker-compose.yml         ← Local dev (API + Dashboard)
+├── .dockerignore
+├── .github/
+│   └── workflows/
+│       └── ci.yml             ← GitHub Actions CI (pytest on push)
 ├── requirements.txt
 ├── requirements_api.txt
 ├── requirements_dashboard.txt
@@ -372,6 +381,26 @@ fraud-detection-ml-system/
 ├── README.md
 └── .gitignore
 ```
+
+---
+
+## 🐳 Docker
+
+> Run the full system locally using Docker — no manual environment setup needed.
+
+```bash
+# API only
+docker build -t fraud-detection-api .
+docker run -p 8000:8000 -v ./fraud_models:/app/fraud_models fraud-detection-api
+```
+
+```bash
+# API + Dashboard together
+docker compose up --build
+```
+
+API will be available at `http://localhost:8000`
+Dashboard will be available at `http://localhost:8501`
 
 ---
 
@@ -424,7 +453,7 @@ streamlit run monitoring/monitoring_dashboard.py
 
 Python · Scikit-Learn · XGBoost · LightGBM · CatBoost · imbalanced-learn ·
 FastAPI · Streamlit · NetworkX · MLflow · Pytest · Pandas · NumPy · Seaborn ·
-Render · Streamlit Cloud
+Docker · GitHub Actions CI/CD · Render · Streamlit Cloud
 
 ---
 
@@ -434,7 +463,6 @@ Render · Streamlit Cloud
 * Online learning with concept drift adaptation
 * SHAP explainability (version compatibility fix pending)
 * A/B traffic splitting for live champion/challenger testing
-* Docker + CI/CD pipeline
 
 ---
 
