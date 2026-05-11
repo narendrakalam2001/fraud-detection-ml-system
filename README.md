@@ -360,8 +360,21 @@ fraud-detection-ml-system/
 │   └── prediction_logs.csv
 │
 ├── docs/
-│   └── architecture/
-│       └── system_architecture.svg
+│   ├── architecture/
+│   │   └── system_architecture.svg    
+│   ├── gifs/
+│   │   └── system_demo.gif                  
+│   ├── reports/
+│   │   ├── model_results.png               
+│   │   └── test_coverage.png                        
+│   └── screenshots/
+│       ├── dashboard_full_ui.png                        
+│       ├── fraud_score_decision_distribution.png 
+│       ├── score_statistics.png ← revenue panel
+│       ├── drift_report.png                              
+│       ├── drift_score.png                             
+│       ├── recent_prediction.png        
+│       └── api_demo
 │
 ├── .streamlit/
 │   └── config.toml
