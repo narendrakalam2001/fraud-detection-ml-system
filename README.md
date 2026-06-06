@@ -55,13 +55,13 @@ real-world payment system decision pipelines.
 📊 Real-time fraud monitoring with interactive visualizations
 
 🚀 **Fraud Monitoring Dashboard (Live)**
-👉 [https://fraud-detection-ml-system-wmawvpwwe65vdwm7gsth3p.streamlit.app/](https://fraud-detection-ml-system-wmawvpwwe65vdwm7gsth3p.streamlit.app/)
+👉 [fraud-detection-ml-system.streamlit.app](https://fraud-detection-ml-system.streamlit.app)
 
 ⚡ **Fraud Detection API**
-👉 [https://fraud-detection-ml-system.onrender.com](https://fraud-detection-ml-system.onrender.com)
+👉 [fraud-detection-ml-system.onrender.com](https://fraud-detection-ml-system.onrender.com)
 
 📄 **API Docs:**
-👉 [https://fraud-detection-ml-system.onrender.com/docs](https://fraud-detection-ml-system.onrender.com/docs)
+👉 [fraud-detection-ml-system.onrender.com/docs](https://fraud-detection-ml-system.onrender.com/docs)
 
 ---
 
