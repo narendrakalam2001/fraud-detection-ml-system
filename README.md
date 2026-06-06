@@ -482,7 +482,8 @@ Docker · GitHub Actions CI/CD · Render · Streamlit Cloud
 ## 👤 Author
 
 **Narendra Kalam**
-Machine Learning & Data Science
+
+Machine Learning & Data Science | MSc Computer Science | Gold Medalist NASSCOM
 
 📧 kalamnarendra2001@gmail.com
 
