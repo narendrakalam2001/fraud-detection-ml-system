@@ -1,85 +1,145 @@
-# 💳 Credit Card Fraud Detection ML System
+# 💳 Credit Card Fraud Detection — ML System
 
-⭐ **If you find this project useful, please give it a star!**
+[![CI](https://github.com/narendrakalam2001/fraud-detection-ml-system/actions/workflows/ci.yml/badge.svg)](https://github.com/narendrakalam2001/fraud-detection-ml-system/actions)
+[![Python 3.9](https://img.shields.io/badge/python-3.9-blue.svg)](https://python.org)
+[![FastAPI](https://img.shields.io/badge/FastAPI-API-green.svg)](https://fastapi.tiangolo.com)
+[![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-red.svg)](https://streamlit.io)
+[![Champion](https://img.shields.io/badge/Champion-ExtraTrees-brightgreen.svg)](#-champion-model-results)
+[![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://docker.com)
+[![MLflow](https://img.shields.io/badge/MLflow-Tracked-orange.svg)](https://mlflow.org)
+[![Tests](https://img.shields.io/badge/Tests-35%20passing-brightgreen.svg)](#-test-coverage)
 
-![Python](https://img.shields.io/badge/Python-3.9-blue)
-![FastAPI](https://img.shields.io/badge/FastAPI-API-green)
-![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-red)
-![Machine Learning](https://img.shields.io/badge/Machine%20Learning-Production-orange)
-![Tests](https://img.shields.io/badge/Tests-35%20passing-brightgreen)
-![MLflow](https://img.shields.io/badge/MLflow-Tracked-blue)
-![CI](https://github.com/narendrakalam2001/fraud-detection-ml-system/actions/workflows/ci.yml/badge.svg)
-
-Production-grade end-to-end machine learning system for **real-time credit card fraud detection** with a
-**3-tier decision engine (APPROVE / REVIEW / BLOCK)**, IQR-based outlier clipping, correct PSI drift monitoring,
-Champion vs Challenger promotion system, model card, and a 5-section live monitoring dashboard.
-
----
-
-## 🚀 Project Overview
-
-This project builds a complete **Fintech-grade Fraud Detection System** with:
-
-* Automated ML training pipeline — 11 models, hyperparameter tuning
-* Rich feature engineering — temporal (sin/cos), feature store, graph-based, anomaly score
-* IQR-based `Clipper` transformer — prevents outlier distortion of StandardScaler
-* SMOTE + `fast_training_sample` — handles 578:1 class imbalance
-* Dual ColumnTransformer — scaled preprocessor for linear models, unscaled for tree models
-* Leakage detection — exact match + near-perfect correlation check before training
-* 3-tier rule engine — BLOCK_RULE / BLOCK_MODEL / REVIEW / APPROVE
-* Champion vs Challenger model promotion system (3 promotion gates)
-* Correct edge-based PSI drift monitoring (fixed from rank-based approach)
-* Model card — structured JSON with metrics, cost eval, feature importances
-* MLflow experiment tracking
-* 35 pytest unit tests with coverage report
-* Real-time FastAPI + Transaction Simulator
-* Streamlit monitoring dashboard — 5 sections with real-time alerts
+> **Domain:** BFSI / Fintech · Payments
+> **Problem:** Binary Classification — Real-Time Credit Card Fraud Detection (578:1 class imbalance)
+> **Dataset:** [Kaggle Credit Card Fraud Detection — 284,807 transactions · 492 frauds](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud)
+> **Industry Context:** Simulates a real-time payment-gateway fraud pipeline — 4-tier APPROVE / REVIEW / BLOCK decision engine with hard rules + ML score
 
 ---
 
 ## 💡 Why This Project Matters
 
-Real fraud detection requires more than a trained classifier.
-This system combines ML + business rules + monitoring + governance to simulate
-real-world payment system decision pipelines.
+Real fraud detection needs more than a trained classifier scoring a transaction in isolation.
+This system combines ML + business rules + monitoring + governance to simulate a real
+payment-system decision pipeline:
+
+- An **ExtraTrees classifier** (selected from 12 tuned models) scores every transaction for
+  fraud probability, trained on temporal, graph-based, and anomaly-score engineered features
+- A **4-tier Rule Engine** applies hard rules **before** the ML score — an amount over $5,000
+  is blocked outright, regardless of what the model says, mirroring how real payment gateways
+  short-circuit obviously risky transactions
+- Every model promotion goes through a **3-gate Champion vs Challenger** check — no model
+  reaches production without demonstrably better F1 and generalization than the current champion
+- **SMOTE + fast training sampling** handle the extreme 578:1 fraud-to-legitimate class imbalance
+- **Edge-based PSI drift monitoring** (fixed from an earlier rank-based bug) tracks feature drift
+  correctly over time
+
+This mirrors real card-network fraud pipelines, where a missed fraud (false negative) and an
+unnecessary block on a legitimate customer (false positive) both carry a real dollar cost.
 
 ---
 
-## 🏗 System Architecture
+## 🏆 Champion Model Results
 
-![Architecture](docs/architecture/system_architecture.png)
+| Metric | Score |
+|---|---|
+| **Champion Model** | `ExtraTrees` |
+| **F1 Score** | `0.8962` |
+| **ROC-AUC** | `0.9669` |
+| **PR-AUC** | `0.8817` |
+| **KS Statistic** | `0.9090` |
+| **Precision** | `0.9318` |
+| **Recall** | `0.8632` |
+| **Brier Score** | `0.0003` |
+| **Train-Test Gap** | `0.0004` |
+| **Decision Threshold** | `0.2100` |
+| **Estimated Fraud Loss** | `$834.69` |
 
----
-## 🌐 Live Demo
-
-📊 Real-time fraud monitoring with interactive visualizations
-
-🚀 **Fraud Monitoring Dashboard (Live)**
-👉 [fraud-detection-ml-system.streamlit.app](https://fraud-detection-ml-system.streamlit.app)
-
-⚡ **Fraud Detection API**
-👉 [fraud-detection-ml-system.onrender.com](https://fraud-detection-ml-system.onrender.com)
-
-📄 **API Docs:**
-👉 [fraud-detection-ml-system.onrender.com/docs](https://fraud-detection-ml-system.onrender.com/docs)
-
----
-
-## 📊 Monitoring Dashboard
-
-The system includes a real-time monitoring dashboard built using **Streamlit** to track fraud predictions and system behavior.
+> *Exact values depend on training run — see `fraud_models/model_card_ExtraTrees_v1.json`*
 
 ---
 
-### 🎬System Demo (End-to-End Flow)
+## 🔗 Live Links
 
-![Dashboard Demo](docs/gifs/system_demo.gif)
+| Service | URL |
+|---|---|
+| 🚀 **API Docs (Swagger UI)** | [fraud-detection-ml-system.onrender.com/docs](https://fraud-detection-ml-system.onrender.com/docs) |
+| 📊 **Monitoring Dashboard** | [fraud-detection-ml-system.streamlit.app](https://fraud-detection-ml-system.streamlit.app) |
+| 📓 **EDA Notebook** | [notebooks/fraud_detection_eda.ipynb](notebooks/fraud_detection_eda.ipynb) |
+
+> ⚠️ Render free tier: first request may take 30–60 seconds (cold start).
 
 ---
+
+## 🏗️ System Architecture
+
+![System Architecture](docs/architecture/system_architecture.svg)
+
+```
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║           CREDIT CARD FRAUD DETECTION — 5-LAYER PRODUCTION SYSTEM                ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  ║
+║  ┌─────────────────────────────── DATA LAYER ──────────────────────────────┐     ║
+║  │  Transaction CSV  →  Validate  →  Leakage Check  →  Feature Engineering │     ║
+║  │  284,807 transactions · 492 frauds (578:1 imbalance) · temporal+graph   │     ║
+║  └───────────────────────────────────┬─────────────────────────────────────┘     ║
+║                                      ▼                                           ║
+║  ┌─────────────────────────── TRAINING PIPELINE ───────────────────────────┐     ║
+║  │                                                                         │     ║
+║  │  ┌──────────────────┐    ┌───────────────┐    ┌──────────────────────┐  │     ║
+║  │  │  IQR Clipper +   │    │  12 Models    │    │  Evaluation          │  │     ║
+║  │  │  Dual Column     │───▶│  Tuned via    │───▶│  F1 · ROC-AUC · KS  │  │     ║
+║  │  │  Transformer +   │    │  RandomSearch │    │  PR-AUC · Brier      │  │     ║
+║  │  │  SMOTE + sample  │    │  (PR-AUC opt) │    │  Recall@K · Lift@K   │  │     ║
+║  │  └──────────────────┘    └───────────────┘    └──────────────────────┘  │     ║
+║  │                                                                         │     ║
+║  │  LR · SGD · GaussianNB · DecisionTree · RandomForest · ExtraTrees ⭐    │     ║
+║  │  GradientBoosting · AdaBoost · XGBoost · LightGBM · CatBoost · MLP      │     ║
+║  │                                                                         │     ║
+║  │  CHAMPION → ExtraTrees  F1=0.8962  ROC-AUC=0.9669  PR-AUC=0.8817        │     ║
+║  └───────────────────────────────────┬─────────────────────────────────────┘     ║
+║                                      ▼                                           ║
+║  ┌──────────────────────── CHAMPION-CHALLENGER ────────────────────────────┐     ║
+║  │                                                                         │     ║
+║  │  Gate 1: F1 improvement   ≥ 0.5%   →  ✅ PASS / ❌ FAIL                │     ║
+║  │  Gate 2: ROC-AUC          ≥ 0.95   →  ✅ PASS / ❌ FAIL                │     ║
+║  │  Gate 3: Train-test gap   ≤ 10%    →  ✅ PASS / ❌ FAIL                │     ║
+║  │                                                                         │     ║
+║  │  ALL gates pass → PROMOTED (latest_model.json updated)                  │     ║
+║  │  ANY gate fails → REJECTED (champion retained, result logged)           │     ║
+║  └───────────────────────────────────┬─────────────────────────────────────┘     ║
+║                                      ▼                                           ║
+║  ┌──────────────────────────── SERVING LAYER ──────────────────────────────┐     ║
+║  │                                                                         │     ║
+║  │  Model Loader  →  Prediction Service  →  Rule Engine  →  FastAPI        │     ║
+║  │                                                                         │     ║
+║  │  POST /predict → single transaction scoring  (→ APPROVE/REVIEW/BLOCK)   │     ║
+║  │  GET  /health  → API health check            (→ {status, model_loaded}) │     ║
+║  │                                                                         │     ║
+║  │  Rule Engine:  Hard Rule (Amount > $5,000) → ML Score → Threshold       │     ║
+║  │                → BLOCK_RULE / BLOCK_MODEL / REVIEW / APPROVE            │     ║
+║  └───────────────────────────────────┬─────────────────────────────────────┘     ║
+║                                      ▼                                           ║
+║  ┌─────────────────── MONITORING LAYER — STREAMLIT DASHBOARD ──────────────┐     ║
+║  │                                                                         │     ║
+║  │  Section 1: Real-Time Alerts     → fraud-score shift · decision-rate    │     ║
+║  │  Section 2: Champion-Challenger  → decision · 3-gate status · history   │     ║
+║  │  Section 3: KPIs + Charts        → F1 · ROC-AUC · PR-AUC · KS charts    │     ║
+║  │  Section 4: PSI Drift            → edge-based, per-feature 🔴🟡🟢      │     ║
+║  │  Section 5: Recent Predictions   → amount · fraud prob · decision       │     ║
+║  │                                                                         │     ║
+║  │  Simulator: 3 scenarios (safe · risky · random) → hits /predict API     │     ║
+║  └─────────────────────────────────────────────────────────────────────────┘     ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+```
+
+---
+
+## 📸 Dashboard Screenshots
 
 ### 🖥️ Full Dashboard UI
 
-Real-time applicant fraud scoring + Champion vs Challenger history.
+Real-time transaction fraud scoring + Champion vs Challenger history.
 
 ![Dashboard](docs/screenshots/dashboard_full_ui.png)
 
@@ -87,8 +147,7 @@ Real-time applicant fraud scoring + Champion vs Challenger history.
 
 ### 📈 Fraud Score and Decision Distribution
 
-score plot shows how predicted fraud probabilities are distributed across transactions.
-and decision shows how many transactions are approved, blocked, or sent for review.
+Fraud probability distribution across transactions, with APPROVE / REVIEW / BLOCK decision breakdown.
 
 ![Fraud Score](docs/screenshots/fraud_score_decision_distribution.png)
 
@@ -96,125 +155,256 @@ and decision shows how many transactions are approved, blocked, or sent for revi
 
 ### 📊 Score Statistics
 
-Statistical summary of fraud scores and labels to monitor distribution shifts.
+Statistical summary of fraud scores and labels to monitor distribution shifts over time.
 
 ![Score Stats](docs/screenshots/score_statistics.png)
 
 ---
 
-### 📉 Feature Drift Report (PSI) and score
+### 📉 Feature Drift Report (PSI)
 
-PSI drift monitoring with 🔴🟡🟢 status flags
+Edge-based PSI drift monitoring with 🔴🟡🟢 status flags per feature.
 
 ![Drift Report](docs/screenshots/drift_report.png)
-
 ![Drift Score](docs/screenshots/drift_score.png)
 
 ---
 
-### 📋 Recent Predictions
+### 🔍 Recent Predictions
 
-Displays recent predictions with amount, fraud probability, and decision.
+Recent transactions with amount, fraud probability, and decision.
 
 ![Transactions](docs/screenshots/recent_prediction.png)
 
 ---
 
-### 🔍 What This Dashboard Helps With
+## 📊 Training Reports
 
-* Detect abnormal fraud score patterns
-* Monitor model prediction behavior in real-time
-* Track approval vs block vs review rates
-* Identify potential model drift via PSI
-* Compare champion vs challenger model versions
-* Debug real-time predictions with rule trigger details
+| Model Results | Test Coverage |
+|---|---|
+| ![Model Results](docs/reports/model_results.png) | ![Tests](docs/reports/test_coverage.png) |
 
 ---
 
-## 📈 Model Results
+## 🎬 System Demo
 
-![Model Results](docs/reports/model_results.png)
-
-**Best Model:** Extra Trees Classifier
-
-| Metric | Value |
-|--------|-------|
-| F1 Score | 0.8962 |
-| ROC-AUC | 0.9669 |
-| PR-AUC | 0.8817 |
-| KS Statistic | 0.9090 |
-| Precision | 0.9318 |
-| Recall | 0.8632 |
-| Brier Score | 0.0003 |
-| Train-Test Gap | 0.0004 |
-| Estimated Fraud Loss | $834.69 |
+![System Demo](docs/gifs/system_demo.gif)
 
 ---
 
-## 🆚 Champion vs Challenger System
+## 📁 Project Structure
 
-Every new training run is compared against the production champion using 3 promotion gates:
-
-| Gate | Condition |
-|------|-----------|
-| F1 Improvement | Challenger must beat champion by ≥ 0.5% |
-| ROC-AUC | Challenger must have ROC-AUC ≥ 0.95 |
-| Generalization Gap | Train-test gap must be ≤ 10% |
-
-Results logged to `fraud_models/challenger_log.json` and visible in dashboard.
+```
+fraud-detection-ml-system/
+│
+├── src/                                # Core ML system
+│   ├── config.py                       # Constants, thresholds, PSI limits, challenger gates
+│   ├── data_loader.py                  # Validation + feature engineering
+│   ├── preprocessing.py                # Clipper (IQR) + dual ColumnTransformer
+│   ├── model_tuning.py                 # 12 model grids + RandomizedSearchCV (PR-AUC scoring)
+│   ├── metrics.py                      # PSI (edge-based fix), KS, cost eval, threshold tuning
+│   ├── rule_engine.py                  # 4-tier decision engine
+│   ├── evaluation.py                   # Model card, feature importances, MLflow, PSI drift
+│   ├── leakage_check.py                # Pre-training leakage detection
+│   ├── model_loader.py                 # Champion load + 3-gate challenger comparison
+│   ├── anomaly_detection.py            # IsolationForest anomaly score
+│   ├── neural_net.py                   # MLP pipeline
+│   ├── sampling.py                     # fast_training_sample
+│   └── training_pipeline.py            # Full orchestration
+│
+├── serving/
+│   └── fraud_api.py                    # FastAPI: /predict · /health
+│
+├── services/
+│   └── prediction_service.py           # Feature prep + inference wrapper
+│
+├── monitoring/
+│   └── monitoring_dashboard.py         # Streamlit: 5-section monitoring dashboard
+│
+├── simulation/
+│   └── transaction_simulator.py        # 3-scenario transaction generator
+│
+├── feature_store/
+│   └── fraud_features.py               # Feature store — temporal + engineered features
+│
+├── graph_detection/
+│   └── fraud_graph_detection.py        # Graph-based fraud signal
+│
+├── scripts/
+│   ├── train_model.py                  # Entry point: python scripts/train_model.py
+│   ├── run_api.py                      # python scripts/run_api.py
+│   ├── run_dashboard.py                # streamlit run monitoring/monitoring_dashboard.py
+│   └── run_simulation.py               # python scripts/run_simulation.py
+│
+├── tests/
+│   └── test_pipeline_core.py           # 35 pytest unit tests
+│
+├── notebooks/
+│   ├── fraud_detection_eda.ipynb       # Professional EDA — 25 steps
+│   └── fraud_detection_eda.html        # Rendered HTML version
+│
+├── data/
+│   └── sample_transactions.csv       # A representative balanced sample dataset is provided in quick testing
+│
+├── fraud_models/                       # Model artifacts — all files pushed to GitHub
+│   ├── latest_model.json               # Champion model registry
+│   ├── challenger_log.json             # Full Champion-Challenger comparison history
+│   ├── model_card_ExtraTrees_v1.json   # Structured model card
+│   ├── fraud_model_v1_metadata.json    # Model metadata
+│   ├── model_experiment_results.csv    # All 12 models comparison table
+│   ├── monitor_scores.csv              # Prediction confidence scores log
+│   ├── feature_drift_report.csv        # PSI drift per feature
+│   └── fraud_model_ExtraTrees_v1.joblib # Trained champion model
+│
+├── docs/
+│   ├── architecture/
+│   │   └── system_architecture.svg     # 5-layer system architecture diagram
+│   ├── screenshots/
+│   │   ├── dashboard_full_ui.png
+│   │   ├── fraud_score_decision_distribution.png
+│   │   ├── score_statistics.png
+│   │   ├── drift_report.png
+│   │   ├── drift_score.png
+│   │   ├── recent_prediction.png
+│   │   └── api_demo.png
+│   ├── reports/
+│   │   ├── model_results.png           # All 12 models comparison
+│   │   └── test_coverage.png           # pytest coverage report
+│   └── gifs/
+│       └── system_demo.gif             # End-to-end system demo
+│
+├── logs/
+│   └── prediction_logs.csv             # API prediction audit log (auto-generated)
+│
+├── .streamlit/
+│   └── config.toml
+│
+├── Dockerfile                          # API Docker image
+├── Dockerfile.dashboard                # Streamlit dashboard container
+├── docker-compose.yml                  # API + Dashboard together
+├── .dockerignore
+├── .github/workflows/ci.yml            # GitHub Actions — pytest on every push
+├── .gitignore
+├── LICENSE                             # MIT License
+├── README.md                           # This file
+├── render.yaml                         # Render.com deployment config
+├── requirements.txt                    # Full training requirements
+├── requirements_api.txt                # Lean API-only requirements
+├── requirements_dashboard.txt          # Dashboard-only requirements
+└── runtime.txt                         # Python version for Render
+```
 
 ---
 
-## 🎯 Risk Decision Engine
+## 🚀 Quickstart
 
-Unlike simple classifiers, this system uses a **3-tier decision engine**:
+### 1. Clone & Install
 
-| Decision | Trigger |
-|----------|---------|
-| `APPROVE` | Low probability + no rule flags |
-| `REVIEW` | Borderline score (prob ≥ threshold × 0.6) |
-| `BLOCK_MODEL` | High probability (prob ≥ threshold) |
-| `BLOCK_RULE` | Hard rule — Amount > $5,000 |
+```bash
+git clone https://github.com/narendrakalam2001/fraud-detection-ml-system.git
+cd fraud-detection-ml-system
+pip install -r requirements.txt
+```
 
-Rules are checked **before** ML — matching real payment system architecture.
+### 2. Download Dataset
 
----
+Download [Kaggle Credit Card Fraud Dataset](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud) → place `creditcard.csv` anywhere accessible.
 
-## 🧪 Test Coverage
+```bash
+# Windows PowerShell
+$env:FRAUD_DATA_PATH = "path\to\creditcard.csv"
 
-![Tests](docs/reports/test_coverage.png)
+# Mac / Linux
+export FRAUD_DATA_PATH=path/to/creditcard.csv
 
----
+data/
+└── sample_transactions.csv
 
-## ⚡ Real-Time Prediction API
+ A representative balanced sample dataset is provided in quick testing
+```
 
-![API Demo](docs/screenshots/api_demo.png)
+> Note: the sample dataset in `data/` is a subset of the original raw dataset — all preprocessing
+> and feature engineering are handled in the pipeline.
 
----
+### 3. Train Model
 
-### Run API
+```bash
+python scripts/train_model.py
+```
+
+Expected output:
+```
+INFO  Data validation passed | 284,807 transactions | 492 frauds (578:1 imbalance)
+INFO  Tuning 12 models ... [LR · SGD · GaussianNB · DecisionTree · RF · ExtraTrees ...]
+INFO  === SELECTED MODEL: ExtraTrees  (f1=0.8962) ===
+INFO  Best threshold: 0.2100  |  precision=0.9318  recall=0.8632
+INFO  Champion-Challenger: PROMOTED
+INFO  TRAINING COMPLETE — F1=0.8962 · ROC-AUC=0.9669 · PR-AUC=0.8817
+```
+
+### 4. Start API
 
 ```bash
 python scripts/run_api.py
+# → http://localhost:8000/docs
 ```
 
-### Endpoint
+### 5. Start Monitoring Dashboard
 
-```
-POST /predict
-```
-
-### Example Request
-
-```json
-{
-  "Time": 50000,
-  "Amount": 120.5
-}
+```bash
+streamlit run monitoring/monitoring_dashboard.py
+# → http://localhost:8501
 ```
 
-### Example Response
+### 6. Run Transaction Simulator
 
+```bash
+python scripts/run_simulation.py --scenario safe  --n 20
+python scripts/run_simulation.py --scenario risky --n 20
+python scripts/run_simulation.py --scenario random --n 30
+```
+
+### 7. Run Tests
+
+```bash
+pytest tests/ -v --cov=src --cov-report=term-missing
+# 35 pytest unit tests
+```
+
+---
+
+## 🐳 Docker
+
+```bash
+# API only
+docker build -t fraud-detection-api .
+docker run -p 8000:8000 -v ./fraud_models:/app/fraud_models fraud-detection-api
+
+# API + Dashboard together
+docker compose up --build
+```
+
+| Service | URL |
+|---|---|
+| FastAPI | `http://localhost:8000` |
+| Streamlit Dashboard | `http://localhost:8501` |
+
+---
+
+## 🔌 API Reference
+
+### POST /predict — Single Transaction Scoring
+
+```bash
+curl -X POST "http://localhost:8000/predict" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "Time": 50000,
+    "Amount": 120.5
+  }'
+```
+
+**Response:**
 ```json
 {
   "fraud_probability": 0.0312,
@@ -224,269 +414,171 @@ POST /predict
 }
 ```
 
----
+### GET /health
 
-## 🔁 Transaction Simulator
-
-```bash
-python scripts/run_simulation.py
-```
-
-Supports 3 scenarios: `random`, `risky`, `safe`
-
----
-
-## 📊 Data Visualization (EDA)
-
-* `notebooks/fraud_detection_eda.ipynb` — 25-step professional EDA
-* `notebooks/fraud_detection_eda.html` — rendered HTML version
-
-Note: The sample dataset provided is a subset of the original raw dataset.
-All preprocessing and feature engineering are handled in the pipeline.
-
----
-
-## ⚙ Machine Learning Pipeline
-
-* Data validation + leakage detection
-* IQR-based outlier clipping (Clipper transformer)
-* Dual preprocessor — scaled (linear models) + unscaled (tree models)
-* Feature engineering + feature store + graph features + anomaly score
-* SMOTE oversampling + fast screening sample
-* 11 models × RandomizedSearchCV (PR-AUC scoring)
-* Threshold tuning (max F1)
-* Cost-sensitive evaluation (FN loss + FP review cost)
-* Model card + MLflow tracking
-* Champion vs Challenger comparison
-
----
-
-## 🤖 Models Used
-
-LR · SGD · GaussianNB · DecisionTree · RandomForest · ExtraTrees ·
-GradientBoosting · AdaBoost · XGBoost · LightGBM · CatBoost · MLP (NeuralNet)
-
----
-
-## 📈 Evaluation Metrics
-
-* Precision / Recall / F1 Score
-* ROC-AUC / PR-AUC
-* KS Statistic
-* Recall@K / Lift@K
-* Brier Score
-* Train-Test Gap
-* Cost Evaluation (Expected Credit Loss)
-
----
-
-## 🧪 Running Tests
-
-```bash
-# Run all tests
-pytest tests/ -v
-
-# With coverage report
-pytest tests/ -v --cov=src --cov-report=term-missing
-```
-
-Tests cover: `Clipper`, `build_preprocessors`, `detect_leakage`,
-`tune_threshold`, `psi`, `recall_at_k`, `lift_at_k`, `ks_statistic`,
-`rule_engine`, `config` thresholds
-
----
-
-## 📂 Project Structure
-
-```
-fraud-detection-ml-system/
-│
-├── src/
-│   ├── config.py              ← constants, thresholds, PSI limits, challenger gates
-│   ├── data_loader.py         ← validation + feature engineering
-│   ├── preprocessing.py       ← Clipper + dual ColumnTransformer
-│   ├── model_tuning.py        ← 11 model grids + RandomizedSearchCV
-│   ├── metrics.py             ← PSI (edge-based fix), KS, cost eval, threshold
-│   ├── rule_engine.py         ← 3-tier decision engine
-│   ├── evaluation.py          ← model card, feature importances, MLflow, PSI drift
-│   ├── leakage_check.py       ← pre-training leakage detection
-│   ├── model_loader.py        ← champion load + 3-gate challenger comparison
-│   ├── anomaly_detection.py   ← IsolationForest anomaly score
-│   ├── neural_net.py          ← MLP pipeline
-│   ├── sampling.py            ← fast_training_sample
-│   └── training_pipeline.py  ← full orchestration
-│
-├── serving/
-│   └── fraud_api.py          ← FastAPI endpoints
-│
-├── services/
-│   └── prediction_service.py
-│
-├── monitoring/
-│   └── monitoring_dashboard.py  ← 5-section Streamlit dashboard
-│
-├── simulation/
-│   └── transaction_simulator.py
-│
-├── feature_store/
-│   └── fraud_features.py
-│
-├── graph_detection/
-│   └── fraud_graph_detection.py
-│
-├── scripts/
-│   ├── train_model.py
-│   ├── run_api.py
-│   ├── run_dashboard.py
-│   └── run_simulation.py
-│
-├── tests/
-│   └── test_pipeline_core.py ← 35 pytest unit tests
-│
-├── notebooks/
-│   └── fraud_detection_eda.ipynb  ← 25-step professional EDA
-│
-├── fraud_models/
-│   ├── challenger_log.json
-│   ├── feature_drift_report.csv
-│   ├── fraud_model_ExtraTrees_v1.joblib
-│   ├── latest_model.json
-│   ├── model_card_ExtraTrees_v1.json
-│   ├── fraud_model_v1_metadata.json
-│   ├── monitor_scores.csv
-│   └── model_experiment_results.csv
-│
-├── logs/
-│   └── prediction_logs.csv
-│
-├── docs/
-│   ├── architecture/
-│   │   └── system_architecture.svg    
-│   ├── gifs/
-│   │   └── system_demo.gif                  
-│   ├── reports/
-│   │   ├── model_results.png               
-│   │   └── test_coverage.png                        
-│   └── screenshots/
-│       ├── dashboard_full_ui.png                        
-│       ├── fraud_score_decision_distribution.png 
-│       ├── score_statistics.png ← revenue panel
-│       ├── drift_report.png                              
-│       ├── drift_score.png                             
-│       ├── recent_prediction.png        
-│       └── api_demo
-│
-├── .streamlit/
-│   └── config.toml
-│
-├── Dockerfile                 ← API Docker image
-├── Dockerfile.dashboard       ← Dashboard Docker image
-├── docker-compose.yml         ← Local dev (API + Dashboard)
-├── .dockerignore
-├── .github/
-│   └── workflows/
-│       └── ci.yml             ← GitHub Actions CI (pytest on push)
-├── requirements.txt
-├── requirements_api.txt
-├── requirements_dashboard.txt
-├── runtime.txt
-├── render.yaml
-├── README.md
-└── .gitignore
+```json
+{"status": "running", "model_loaded": true}
 ```
 
 ---
 
-## 🐳 Docker
+## 🧠 Technical Standards
 
-> Run the full system locally using Docker — no manual environment setup needed.
-
-```bash
-# API only
-docker build -t fraud-detection-api .
-docker run -p 8000:8000 -v ./fraud_models:/app/fraud_models fraud-detection-api
-```
-
-```bash
-# API + Dashboard together
-docker compose up --build
-```
-
-API will be available at `http://localhost:8000`
-Dashboard will be available at `http://localhost:8501`
+| Component | Implementation |
+|---|---|
+| **Class Imbalance** | SMOTE + `fast_training_sample` — handles 578:1 fraud-to-legit ratio |
+| **Outlier Clipping** | Custom IQR-based `Clipper` — prevents outlier distortion of `StandardScaler` |
+| **Dual Preprocessors** | `preprocessor_scaled` (linear models) + `preprocessor_unscaled` (tree models) |
+| **Feature Engineering** | Temporal (sin/cos), feature store, graph-based signal, `IsolationForest` anomaly score |
+| **Models Tuned** | LR · SGD · GaussianNB · DecisionTree · RandomForest · **ExtraTrees** · GradientBoosting · AdaBoost · XGBoost · LightGBM · CatBoost · MLP |
+| **Hyperparameter Tuning** | `RandomizedSearchCV` — PR-AUC scoring |
+| **Champion-Challenger** | 3-gate: F1 improvement ≥ 0.5% · ROC-AUC ≥ 0.95 · Train-test gap ≤ 10% |
+| **PSI Drift Monitoring** | Edge-based — corrected from an earlier rank-based implementation bug |
+| **Experiment Tracking** | MLflow — metrics · params · model artifact per run |
+| **Model Card** | Structured JSON — metrics, cost eval, feature importances |
+| **Leakage Detection** | Exact match + near-perfect correlation check before training |
+| **Rule Engine** | Hard rule (Amount > $5,000) + ML threshold → BLOCK_RULE / BLOCK_MODEL / REVIEW / APPROVE |
+| **CI/CD** | GitHub Actions — pytest on every push |
+| **Deployment** | Render.com (FastAPI) + Streamlit Cloud (Dashboard) |
 
 ---
 
-## ▶️ How to Run
+## 📊 Model Comparison — Actual Training Run
 
-### 1. Install Dependencies
+| Model | Test F1 | Precision | Recall | ROC-AUC | PR-AUC | KS | Brier | Gen. Gap | Threshold |
+|---|---|---|---|---|---|---|---|---|---|
+| **ExtraTrees** ⭐ | **0.8962** | 0.9318 | 0.8632 | 0.9669 | **0.8817** | 0.9090 | **0.0003** | 0.0004 | 0.2100 |
+| RandomForest | 0.8840 | 0.9302 | 0.8421 | 0.9672 | 0.8711 | 0.9198 | 0.0004 | 0.0004 | 0.3400 |
+| SGD | 0.8495 | 0.8681 | 0.8316 | 0.9865 | 0.7993 | 0.8947 | 0.0008 | 0.0001 | 0.0000 |
+| NeuralNet (MLP) | 0.8541 | 0.8778 | 0.8316 | 0.9774 | 0.8208 | 0.8987 | 0.0005 | 0.0001 | 0.3204 |
+| LogisticRegression | 0.8525 | 0.8864 | 0.8211 | **0.9857** | 0.8352 | 0.9092 | 0.0004 | 0.0001 | 0.5295 |
+| GaussianNB | 0.8342 | 0.8478 | 0.8211 | 0.9796 | 0.7368 | 0.8861 | 0.0021 | 0.0001 | 1.0000 |
+| DecisionTree | 0.7629 | 0.7475 | 0.7789 | 0.8893 | 0.5826 | 0.7785 | 0.0008 | 0.0008 | 1.0000 |
 
-```bash
-pip install -r requirements.txt
-```
+> Selection rule: highest test F1 among tuned candidates → **ExtraTrees** selected (`f1=0.8962`,
+> `precision=0.9318`, `recall=0.8632`, `threshold=0.2100`). GradientBoosting, AdaBoost, XGBoost,
+> LightGBM, and CatBoost were also tuned as part of the full 12-model sweep — see
+> `fraud_models/model_experiment_results.csv` for the complete comparison.
 
-### 2. Train Model
+---
 
-```bash
-# Windows PowerShell
-$env:FRAUD_DATA_PATH = "path\to\creditcard.csv"
-python scripts/train_model.py
+## 💰 Cost Evaluation
 
-# Mac / Linux
-FRAUD_DATA_PATH=path/to/creditcard.csv python scripts/train_model.py
-```
+Cost-sensitive evaluation on the actual test run:
 
-### 3. Run Tests
+| Event | Count / Cost |
+|---|---|
+| False Negatives (missed fraud) | `13` |
+| False Positives (wrongly flagged) | `6` |
+| Estimated Fraud Loss | `$834.69` |
+| Review Cost | `$30.00` |
+| **Total Estimated Loss** | **`$864.69`** |
+
+---
+
+## 🎯 Rule Engine — 4-Tier Decision System
+
+Unlike simple binary classifiers, this system uses a **4-tier decision engine** that checks
+hard rules **before** the ML score — matching real payment-system architecture:
+
+| Decision | Trigger |
+|---|---|
+| `BLOCK_RULE` | Hard rule — Amount > $5,000, overrides ML score |
+| `BLOCK_MODEL` | High fraud probability (prob ≥ threshold) |
+| `REVIEW` | Borderline score (prob ≥ threshold × 0.6) |
+| `APPROVE` | Low probability + no rule flags |
+
+**Real run — Rule Engine decision counts** (test set):
+
+| Decision | Count |
+|---|---|
+| `APPROVE` | `56,639` |
+| `BLOCK_MODEL` | `88` |
+| `BLOCK_RULE` | `12` |
+| `REVIEW` | `7` |
+
+Results logged to `fraud_models/challenger_log.json` and visible in the dashboard Section 2 with per-gate ✅/❌ status.
+
+---
+
+## 📈 Monitoring Dashboard — 5 Sections
+
+| Section | What it shows |
+|---|---|
+| **1. Real-Time Alerts** | Fraud-score distribution shift · abnormal approval/block rates |
+| **2. Champion-Challenger** | Latest decision badge · 3-gate pass/fail status · full history |
+| **3. KPIs + Charts** | F1 · ROC-AUC · PR-AUC · KS · model comparison charts |
+| **4. PSI Drift** | Edge-based per-feature PSI with 🔴🟡🟢 status flags |
+| **5. Recent Predictions** | Amount · fraud probability · decision per transaction |
+
+---
+
+## 🧪 Test Coverage — 35 Passing
+
+![Tests](docs/reports/test_coverage.png)
+
+35 pytest unit tests covering:
+
+`Clipper` · `build_preprocessors` · `detect_leakage` · `tune_threshold` · `psi` ·
+`recall_at_k` · `lift_at_k` · `ks_statistic` · `rule_engine` · `config` thresholds
 
 ```bash
 pytest tests/ -v --cov=src --cov-report=term-missing
 ```
 
-### 4. Start API
-
-```bash
-python scripts/run_api.py
-```
-
-### 5. Run Simulator
-
-```bash
-python scripts/run_simulation.py
-```
-
-### 6. Start Dashboard
-
-```bash
-streamlit run monitoring/monitoring_dashboard.py
-```
-
 ---
 
-## 🛠 Tech Stack
+## 🛡️ Ethical Considerations
 
-Python · Scikit-Learn · XGBoost · LightGBM · CatBoost · imbalanced-learn ·
-FastAPI · Streamlit · NetworkX · MLflow · Pytest · Pandas · NumPy · Seaborn ·
-Docker · GitHub Actions CI/CD · Render · Streamlit Cloud
+- Model outputs must be reviewed by qualified fraud/risk analysts before final BLOCK decisions
+- Regular fairness and drift audits recommended — spending-pattern proxies can encode bias against certain customer segments
+- Not designed for: fully automated blocking without human review on `REVIEW`-tier transactions
+- The dataset is heavily anonymized (PCA-transformed features) and highly imbalanced (578:1) —
+  re-validate thresholds and cost assumptions before use on a live production feed
+- Hard rules (e.g. Amount > $5,000) should be tuned to the deploying institution's actual risk appetite
 
 ---
 
 ## 📌 Future Improvements
 
-* Kafka streaming for real-time transaction ingestion
-* Online learning with concept drift adaptation
-* SHAP explainability (version compatibility fix pending)
-* A/B traffic splitting for live champion/challenger testing
+- Kafka streaming for real-time transaction ingestion
+- Online learning with concept-drift adaptation
+- SHAP explainability (version compatibility fix pending)
+- A/B traffic splitting for live champion/challenger testing
 
 ---
 
-## 👤 Author
+## 👨‍💻 About
 
-**Narendra Kalam**
+**Narendra Kalam** — MSc Computer Science (Gold Medalist — NASSCOM, Full Stack Data Science + AI)
 
-Machine Learning & Data Science | MSc Computer Science | Gold Medalist NASSCOM
+> Building 20+ industry-level, end-to-end ML systems targeting **30+ LPA** at top MNCs in India.
 
-📧 kalamnarendra2001@gmail.com
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?logo=linkedin)](https://www.linkedin.com/in/narendra-kalam/)
+[![Kaggle](https://img.shields.io/badge/Kaggle-Profile-20BEFF?logo=kaggle)](https://www.kaggle.com/narendrakalam)
+[![Portfolio](https://img.shields.io/badge/Portfolio-Visit-green?logo=github)](https://narendrakalam2001.github.io/)
+[![Email](https://img.shields.io/badge/Email-Contact-red?logo=gmail)](mailto:kalamnarendra2001@gmail.com)
 
-🔗 https://www.linkedin.com/in/narendra-kalam
+### Portfolio Projects
 
-🌐 Portfolio: ...
+| # | Project | Domain | Champion Model | Key Metric |
+|---|---|---|---|---|
+| 1 | **Credit Card Fraud Detection** | **BFSI / Fintech** | **ExtraTrees** | **F1 = 0.8962 · 284K transactions** |
+| 2 | Credit Risk Prediction | BFSI / Lending | LightGBM | F1 = 0.9741 · ROC-AUC = 0.9991 |
+| 3 | Customer Churn Prediction | Telecom / BFSI | CatBoost | F1 = 0.634 · Recall = 0.7312 |
+| 4 | House Price Prediction | Real Estate | CatBoost | RMSE = $20,128 · R² = 0.9053 |
+| 5 | Store Sales Forecasting | Retail / Supply Chain | LightGBM (Ensemble) | RMSLE = 0.3739 · R² = 0.9761 |
+| 6 | Energy Demand Forecasting | Energy / Utilities | ElasticNet | RMSE = 712.04 MW · R² = 0.9759 |
+| 7 | Stock Price & Risk Forecasting | Fintech / Capital Markets | Ridge | DirAcc = 53.44% · Sharpe = 0.80 |
+| 8 | Resume Screener AI | HR Tech | LightGBM | F1 = 0.7608 · Top-3 = 0.9416 |
+| 9 | ABSA Sentiment Analysis | E-Commerce / Banking | RidgeClassifier | Macro-F1 = 0.6212 · ROC-AUC = 0.823 |
+| 10 | Fake News Detector | Media Tech / Gov Tech | XGBoost | F1 = 0.9993 · ROC = 1.0000 |
+| 11 | BC5CDR Clinical NER | Biomedical NLP | BioBERT | F1 = 0.8847 · Chemical F1 = 0.9239 |
+| 12 | News Topic Modeling | Media Analytics | LDA (Gensim) | Cv = 0.6225 · Diversity = 0.92 |
+| 13 | Chest X-Ray Diagnosis | Healthcare AI | DenseNet121 | Mean AUC = 0.7864 · 14 classes |
+
+---
+
+## 📄 License
+
+MIT License — see [LICENSE](LICENSE)
